@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartCare – Clinic Management</title>
+  <link rel="stylesheet" href="./styles/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="page-wrapper">
+    <header>
+      <h1>SmartCare</h1>
+      <p class="tagline">Simplifying clinic operations with care</p>
+      <div class="theme-toggle-wrapper">
+        <label for="themeToggle" class="theme-label">🌓 Theme:</label>
+        <label class="theme-switch">
+          <input type="checkbox" id="themeToggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+    </header>
+
+    <main>
+      <div class="card-container">
+        <div class="card">
+          <h2>New User?</h2>
+          <p>Create your account as a Doctor or Receptionist</p>
+          <a href="./auth/register.html" class="btn primary">Register</a>
+        </div>
+        <div class="card">
+          <h2>Returning?</h2>
+          <p>Log in to your dashboard and manage appointments</p>
+          <a href="./auth/login.html" class="btn secondary">Login</a>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 SmartCare • Designed with empathy for clinics</p>
+    </footer>
+  </div>
+  <script>
+  const toggle = document.getElementById("themeToggle");
+  const body = document.body;
+
+  const saved = localStorage.getItem("theme");
+  if (saved === "dark") {
+    body.classList.add("dark");
+    toggle.checked = true;
+  }
+
+  toggle.addEventListener("change", () => {
+    if (toggle.checked) {
+      body.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      body.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  });
+</script>
+
+</body>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    document.body.classList.add("loaded");
+  });
+</script>
+
+</html>

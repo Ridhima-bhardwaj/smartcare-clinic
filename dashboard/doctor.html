@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartCare – Doctor Dashboard</title>
+  <link rel="stylesheet" href="../styles/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script type="module" src="../scripts/doctor.js" defer></script>
+</head>
+<body class="fade-ready">
+  <div class="page-wrapper">
+    <header>
+      <h1>Doctor Dashboard</h1>
+      <p class="tagline">View patients and prescribe treatments</p>
+
+      <!-- ✅ Theme toggle with label -->
+       <div class="theme-toggle-wrapper">
+        <span class="theme-label">🌞 Light</span>
+        <label class="theme-switch">
+          <input type="checkbox" id="themeToggle" />
+          <span class="slider"></span>
+        </label>
+        <span class="theme-label">🌙 Dark</span>
+      </div>
+    </header>
+    <main class="dashboard-section">
+      <div id="patientList" class="dashboard-list">
+        <!-- Patients will be dynamically rendered here -->
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 SmartCare</p>
+    </footer>
+  </div>
+
+  <!-- ✅ Fade-in animation -->
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add("loaded");
+    });
+  </script>
+
+  <!-- ✅ Theme toggle logic -->
+  <script>
+    const toggle = document.getElementById("themeToggle");
+    const body = document.body;
+
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      body.classList.add("dark");
+      toggle.checked = true;
+    }
+
+    toggle.addEventListener("change", () => {
+      if (toggle.checked) {
+        body.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        body.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      }
+    });
+  </script>
+</body>
+</html>

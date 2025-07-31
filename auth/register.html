@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartCare – Register</title>
+  <link rel="stylesheet" href="../styles/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script type="module" src="../scripts/register.js" defer></script>
+</head>
+<body class="fade-ready">
+  <div class="page-wrapper">
+    <header>
+      <h1>SmartCare Register</h1>
+      <!-- ✅ Theme toggle with label -->
+       <div class="theme-toggle-wrapper">
+        <span class="theme-label">🌞 Light</span>
+        <label class="theme-switch">
+          <input type="checkbox" id="themeToggle" />
+          <span class="slider"></span>
+        </label>
+        <span class="theme-label">🌙 Dark</span>
+      </div>
+
+    </header>
+
+    <main class="form-section">
+      <form id="registerForm" class="form-card">
+        <h2>Create an Account</h2>
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <select id="role">
+          <option value="doctor">Doctor</option>
+          <option value="receptionist">Receptionist</option>
+        </select>
+        <button type="submit" class="btn primary">Register</button>
+        <p id="message" class="success-msg"></p>
+        <p id="error" class="error-msg"></p>
+      </form>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 SmartCare</p>
+    </footer>
+  </div>
+
+  <!-- Theme toggle script -->
+  <script>
+    const toggle = document.getElementById("themeToggle");
+    const body = document.body;
+
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      body.classList.add("dark");
+      toggle.checked = true;
+    }
+
+    toggle.addEventListener("change", () => {
+      if (toggle.checked) {
+        body.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        body.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      }
+    });
+  </script>
+
+  <!-- Fade-in on load -->
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add("loaded");
+    });
+  </script>
+</body>
+</html>
