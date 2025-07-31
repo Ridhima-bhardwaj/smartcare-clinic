@@ -6,6 +6,8 @@ SmartCare is a modern, role-based Clinic Management System built using **HTML, C
 
 ## 🚀 Features
 
+🔐 Firebase Auth with role-based access (Doctor, Receptionist)
+
 ### 👩‍⚕️ Doctor
 - Secure login
 - View patients assigned by receptionist
