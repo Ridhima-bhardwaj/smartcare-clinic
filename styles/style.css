@@ -340,6 +340,7 @@ textarea {
   }
 }
 .theme-toggle-wrapper {
+  margin-top: 0.5rem; /* ← small update */
   position: absolute;
   top: 1.5rem;
   right: 2rem;
