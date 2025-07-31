@@ -353,6 +353,8 @@ textarea {
 }
 
 .theme-label {
+  font-weight: 600;
+  letter-spacing: 0.5px; /* new! */
   color: var(--text-color);
   white-space: nowrap;
 }
