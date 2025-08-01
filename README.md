@@ -1,3 +1,4 @@
+[![Live](https://img.shields.io/badge/Live%20App-Click%20Here-brightgreen)](https://ridhima-bhardwaj.github.io/smartcare-clinic/)
 # 🏥 SmartCare – Clinic Management System
 
 SmartCare is a modern, role-based Clinic Management System built using **HTML, CSS, JavaScript**, and **Firebase**. It aims to streamline clinic workflows with distinct interfaces for doctors and receptionists, ensuring efficient patient registration, treatment, and billing.
