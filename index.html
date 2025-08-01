@@ -13,11 +13,12 @@
       <h1>SmartCare</h1>
       <p class="tagline">Simplifying clinic operations with care</p>
       <div class="theme-toggle-wrapper">
-        <label for="themeToggle" class="theme-label">🌓 Theme:</label>
+        <span class="theme-label">🌞 Light</span>
         <label class="theme-switch">
           <input type="checkbox" id="themeToggle" />
           <span class="slider"></span>
         </label>
+        <span class="theme-label">🌙 Dark</span>
       </div>
 
     </header>
@@ -41,12 +42,12 @@
       <p>&copy; 2025 SmartCare • Designed with empathy for clinics</p>
     </footer>
   </div>
-  <script>
+<script>
   const toggle = document.getElementById("themeToggle");
   const body = document.body;
 
-  const saved = localStorage.getItem("theme");
-  if (saved === "dark") {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
     body.classList.add("dark");
     toggle.checked = true;
   }
