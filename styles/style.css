@@ -409,3 +409,13 @@ body.dark {
   --btn-bg: #6a5acd;
   --btn-hover: #5943c5;
 }
+@media (max-width: 600px) {
+  .form-card, .card, .patient-card {
+    width: 90%;
+    padding: 1.2rem;
+  }
+
+  header h1 {
+    font-size: 1.8rem;
+  }
+}
