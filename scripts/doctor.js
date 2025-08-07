@@ -12,19 +12,24 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("loaded");
 
   const patientList = document.getElementById("patientList");
+  const dateInput = document.getElementById("filterDate");
 
-  // ✅ Fetch all patients who are waiting
-  async function loadPatients() {
-    const q = query(
-      collection(db, "patients"),
-      where("status", "==", "waiting")
-    );
+  // ✅ Load patients (optionally filtered by date)
+  async function loadPatients(filterDate = "") {
+    let q = query(collection(db, "patients"), where("status", "==", "waiting"));
+    if (filterDate) {
+      q = query(
+        collection(db, "patients"),
+        where("status", "==", "waiting"),
+        where("date", "==", filterDate)
+      );
+    }
 
     const snapshot = await getDocs(q);
     patientList.innerHTML = "";
 
     if (snapshot.empty) {
-      patientList.innerHTML = "<p>No patients in queue.</p>";
+      patientList.innerHTML = "<p>No patients found.</p>";
       return;
     }
 
@@ -47,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ✅ Submit prescription to Firestore
+  // ✅ Handle prescription submission
   window.submitPrescription = async (docId) => {
     const textarea = document.getElementById(`prescription-${docId}`);
     const prescription = textarea.value.trim();
@@ -63,13 +68,19 @@ document.addEventListener("DOMContentLoaded", () => {
         status: "prescribed"
       });
       alert("Prescription submitted!");
-      loadPatients(); // Refresh list
+      loadPatients(dateInput.value); // reload filtered if applicable
     } catch (err) {
       console.error("Error updating:", err);
       alert("Failed to submit prescription.");
     }
   };
 
-  // Initial load
+  // ✅ On filter date change
+  dateInput.addEventListener("change", (e) => {
+    const selectedDate = e.target.value;
+    loadPatients(selectedDate); // filtered
+  });
+
+  // Initial load (all patients)
   loadPatients();
 });

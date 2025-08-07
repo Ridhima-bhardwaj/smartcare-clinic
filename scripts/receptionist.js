@@ -16,8 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const confirmation = document.getElementById("confirmation");
   const billList = document.getElementById("billList");
 
-  let tokenCounter = 1; // You can manage this better in Firestore for real systems
-
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -29,34 +27,50 @@ document.addEventListener("DOMContentLoaded", () => {
     const age = form.age.value.trim();
     const gender = form.gender.value;
     const symptoms = form.symptoms.value.trim();
+    const today = new Date().toISOString().split("T")[0];
 
     try {
-      // ✅ Add to Firestore
+      // ✅ Query patients only for today's date to find max token
+      const q = query(collection(db, "patients"), where("date", "==", today));
+      const snapshot = await getDocs(q);
+
+      let maxToken = 0;
+      snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        if (data.token > maxToken) {
+          maxToken = data.token;
+        }
+      });
+
+      const newToken = maxToken + 1;
+
+      // ✅ Add patient with today's date and unique token
       await addDoc(collection(db, "patients"), {
         name,
         age,
         gender,
         symptoms,
-        token: tokenCounter++,
-        status: "waiting",              // ✅ ensures visibility on doctor side
+        token: newToken,
+        status: "waiting",
         prescription: "",
         billGenerated: false,
+        date: today,
         createdAt: new Date()
       });
 
-      confirmation.textContent = "Patient added successfully.";
+      confirmation.textContent = `✅ Patient added successfully. Assigned Token #${newToken}`;
       form.reset();
-      loadBillingRequests(); // reload updated list
-
+      loadBillingRequests();
     } catch (err) {
-      confirmation.textContent = "Failed to add patient.";
+      console.error(err);
+      confirmation.textContent = "❌ Failed to add patient.";
     } finally {
       btn.disabled = false;
       btn.textContent = "Add Patient";
     }
   });
 
-  // ✅ Load billing requests (prescribed but not billed yet)
+  // ✅ Load billing requests (prescribed but not billed)
   async function loadBillingRequests() {
     const q = query(
       collection(db, "patients"),
@@ -83,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ✅ Billing generator
+  // ✅ Bill generation
   window.generateBill = async (docId) => {
     const amount = prompt("Enter bill amount:");
 

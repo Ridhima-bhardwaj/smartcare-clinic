@@ -14,8 +14,8 @@
       <h1>Doctor Dashboard</h1>
       <p class="tagline">View patients and prescribe treatments</p>
 
-      <!-- ✅ Theme toggle with label -->
-       <div class="theme-toggle-wrapper">
+      <!-- 🌙 Theme toggle -->
+      <div class="theme-toggle-wrapper">
         <span class="theme-label">🌞 Light</span>
         <label class="theme-switch">
           <input type="checkbox" id="themeToggle" />
@@ -24,10 +24,16 @@
         <span class="theme-label">🌙 Dark</span>
       </div>
     </header>
+
     <main class="dashboard-section">
-      <div id="patientList" class="dashboard-list">
-        <!-- Patients will be dynamically rendered here -->
-      </div>
+      <!-- 👥 Patient Queue + Date Filter -->
+      <section class="dashboard-list">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+          <h2 style="margin-bottom: 1rem;">👥 Patient Queue</h2>
+          <input type="date" id="filterDate" style="padding: 0.5rem; font-size: 1rem; border-radius: 8px; border: 1px solid #ccc;" />
+        </div>
+        <div id="patientList"></div>
+      </section>
     </main>
 
     <footer>
@@ -35,7 +41,7 @@
     </footer>
   </div>
 
-  <!-- ✅ Fade-in animation -->
+  <!-- ✅ Page fade-in animation -->
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       document.body.classList.add("loaded");
