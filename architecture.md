@@ -66,11 +66,36 @@ Each document contains:
 - `name`: string
 - `age`: number
 - `gender`: string
+- `date`: string
 - `symptoms`: string
 - `prescription`: string (optional, added by doctor)
 - `timestamp`: auto-added during creation
 
 ---
+## 🔄 Data Flow
+
+### 🧾 Receptionist Flow
+1. User fills patient form.
+2. On submit:
+   - Query Firestore for today's patients.
+   - Find the highest token assigned today.
+   - Assign new token = max + 1.
+   - Store patient info in Firestore with status = "waiting".
+
+### 👨‍⚕️ Doctor Flow
+1. Loads all patients with `status == "waiting"`.
+2. Date filter available:
+   - If date is selected → query filtered list by `date == selectedDate`.
+3. Doctor submits prescription:
+   - Updates `status = "prescribed"` and adds `prescription`.
+
+### 💳 Billing Flow
+1. Loads patients with:
+   - `status == "prescribed"`
+   - `billGenerated == false`
+2. Receptionist enters bill amount.
+3. Firestore updates bill status.
+
 
 ## 🌐 Hosting
 
