@@ -75,4 +75,16 @@ This document highlights various optimizations done at both code and system desi
 
 ---
 
+## 🔄 Firestore Read Optimization
+- Instead of fetching **all patients** for token tracking, only **today's records** are queried.
+- Reduced reads and improved performance.
+
+## 🔢 Token Generation
+- Auto-incremental token per day avoids manual errors and duplication.
+- Ensures consistency and eliminates reliance on client-side counters.
+
+## 📅 Queue Filtering
+- Used Firestore queries (`where("date", "==", selectedDate)`) instead of filtering after retrieval.
+- Improves load time and reduces UI complexity.
+
 *Maintained by Ridhima Bhardwaj | 2025*
